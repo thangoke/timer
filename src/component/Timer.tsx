@@ -22,15 +22,27 @@ export default function Timer({ hour, minute, second }: any) {
                 let remain = totalSeconds;
 
                 let s = remain % 60;
-                setCurrSecond('' + s);
+                if (s < 10) {
+                    setCurrSecond('0' + s);
+                } else {
+                    setCurrSecond('' + s);
+                }
                 remain -= s;
 
                 let m = remain % 3600;
-                setCurrMinute('' + m);
+                if (m < 10) {
+                    setCurrMinute('0' + m);
+                } else {
+                    setCurrMinute('' + m);
+                }
                 remain -= m * 60;
 
                 let h = remain % 86400;
-                setCurrHour('' + h);
+                if (h < 10) {
+                    setCurrHour('0' + h);
+                } else {
+                    setCurrHour('' + h);
+                }
             }
         }, 1000);
         return () => clearInterval(interval);
