@@ -4,9 +4,9 @@ import AdjustDown from "./AdjustDown"
 import { useState } from "react"
 
 export default function TimerSetup({ onClose }: any) {
-    let [hour, setHour] = useState("00");
-    let [minute, setMinute] = useState("00");
-    let [second, setSecond] = useState("15");
+    let [hour, setHour] = useState(localStorage.getItem("thangoke.timer/hour") || "00");
+    let [minute, setMinute] = useState(localStorage.getItem("thangoke.timer/minute") || "00");
+    let [second, setSecond] = useState(localStorage.getItem("thangoke.timer/second") || "15");
 
     const setElement = (name: string, direction: string) => {
         let amount = direction === "down" ? -1 : 1;
