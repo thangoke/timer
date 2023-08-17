@@ -3,10 +3,10 @@ import AdjustUp from "./AdjustUp"
 import AdjustDown from "./AdjustDown"
 import { useState } from "react"
 
-export default function TimerSetup({ onClose }: any) {
-    let [hour, setHour] = useState(localStorage.getItem("thangoke.timer/hour") || "00");
-    let [minute, setMinute] = useState(localStorage.getItem("thangoke.timer/minute") || "00");
-    let [second, setSecond] = useState(localStorage.getItem("thangoke.timer/second") || "15");
+export default function TimerSetup({ onClose, setupFor, timeColor }: any) {
+    let [hour, setHour] = useState(localStorage.getItem(`thangoke.timer/${setupFor}hour`) || "00");
+    let [minute, setMinute] = useState(localStorage.getItem(`thangoke.timer/${setupFor}minute`) || "00");
+    let [second, setSecond] = useState(localStorage.getItem(`thangoke.timer/${setupFor}second`) || "15");
 
     const getFormatted = (num: number) => {
         if (num < 10) {
@@ -31,7 +31,7 @@ export default function TimerSetup({ onClose }: any) {
                     hourPresen = ('' + currentHour);
                 }
                 setHour(hourPresen);
-                localStorage.setItem("thangoke.timer/hour", hourPresen);
+                localStorage.setItem(`thangoke.timer/${setupFor}hour`, hourPresen);
                 break;
             }
             case "minute": {
@@ -47,7 +47,7 @@ export default function TimerSetup({ onClose }: any) {
                     minutePresen = ('' + currenMinute);
                 }
                 setMinute(minutePresen);
-                localStorage.setItem("thangoke.timer/minute", minutePresen);
+                localStorage.setItem(`thangoke.timer/${setupFor}minute`, minutePresen);
                 break;
             }
             case "second": {
@@ -63,7 +63,7 @@ export default function TimerSetup({ onClose }: any) {
                     secondPresen = ('' + currenSecond);
                 }
                 setSecond(secondPresen);
-                localStorage.setItem("thangoke.timer/second", secondPresen);
+                localStorage.setItem(`thangoke.timer/${setupFor}second`, secondPresen);
                 break;
             }
         }
@@ -71,32 +71,32 @@ export default function TimerSetup({ onClose }: any) {
 
     const reset = () => {
         setHour("00");
-        localStorage.setItem("thangoke.timer/hour", "00");
+        localStorage.setItem(`thangoke.timer/${setupFor}hour`, "00");
         setMinute("00");
-        localStorage.setItem("thangoke.timer/minute", "00");
+        localStorage.setItem(`thangoke.timer/${setupFor}minute`, "00");
         setSecond("00");
-        localStorage.setItem("thangoke.timer/second", "00");
+        localStorage.setItem(`thangoke.timer/${setupFor}second`, "00");
     }
 
     const plusMinute = (num: number) => {
         if (Number(minute) + num > 59) {
             setMinute("59");
-            localStorage.setItem("thangoke.timer/minute", "59");
+            localStorage.setItem(`thangoke.timer/${setupFor}minute`, "59");
         } else {
             const newMinute = getFormatted(Number(minute) + num);
             setMinute(newMinute);
-            localStorage.setItem("thangoke.timer/minute", newMinute);
+            localStorage.setItem(`thangoke.timer/${setupFor}minute`, newMinute);
         }
     }
 
     const plusSecond = (num: number) => {
         if (Number(second) + num > 59) {
             setSecond("59");
-            localStorage.setItem("thangoke.timer/second", "59");
+            localStorage.setItem(`thangoke.timer/${setupFor}second`, "59");
         } else {
             const newSecond = getFormatted(Number(second) + num);
             setSecond(newSecond);
-            localStorage.setItem("thangoke.timer/second", newSecond);
+            localStorage.setItem(`thangoke.timer/${setupFor}second`, newSecond);
         }
     }
 

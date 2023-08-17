@@ -24,7 +24,9 @@ function App() {
 
   return (
     <div className="App">
-      {currentScreen === "setup" && <TimerSetup onClose={() => handleSetupClose()} />}
+      {currentScreen === "setup" && <TimerSetup setupFor="" onClose={() => handleSetupClose()} />}
+      <div style={{ marginTop: "50px", marginBottom: "50px" }}></div>
+      {currentScreen === "setup" && <TimerSetup setupFor="alarm" onClose={() => handleSetupClose()} />}
       <div style={{ marginTop: "50px", marginBottom: "50px" }}></div>
       {currentScreen === "timer" && <Timer hour={hour} minute={minute} second={second} />}
     </div>
