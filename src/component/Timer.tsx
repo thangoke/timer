@@ -3,36 +3,42 @@ import { useEffect, useState } from "react"
 import PlayPauseButton from "./PlayPauseButton";
 
 export default function Timer({ hour, minute, second }: any) {
+    let [currStatus, setCurrStatus] = useState("pause");
+
     let [currHour, setCurrHour] = useState(hour);
     let [currMinute, setCurrMinute] = useState(minute);
     let [currSecond, setCurrSecond] = useState(second);
 
-    let totalSeconds = Number(currHour) * 3600 + Number(minute) * 60 + Number(second);
+    let [totalSeconds, setTotalSeconds] = useState(Number(currHour) * 3600 + Number(minute) * 60 + Number(second));
 
     useEffect(() => {
         const interval = setInterval(() => {
-            if (totalSeconds > 0) {
-                --totalSeconds
-            };
+            console.log(currStatus)
+            if (currStatus !== "pause") {
+                if (totalSeconds > 0) {
+                    setTotalSeconds(totalSeconds - 1);
+                };
 
-            let remain = totalSeconds;
+                let remain = totalSeconds;
 
-            let s = remain % 60;
-            setCurrSecond('' + s);
-            remain -= s;
+                let s = remain % 60;
+                setCurrSecond('' + s);
+                remain -= s;
 
-            let m = remain % 3600;
-            setCurrMinute('' + m);
-            remain -= m * 60;
+                let m = remain % 3600;
+                setCurrMinute('' + m);
+                remain -= m * 60;
 
-            let h = remain % 86400;
-            setCurrHour('' + h);
+                let h = remain % 86400;
+                setCurrHour('' + h);
+            }
         }, 1000);
         return () => clearInterval(interval);
-    }, []);
+    }, [currStatus, totalSeconds]);
 
     const handleStatusChange = (status: string) => {
-
+        console.log("receive status", status);
+        setCurrStatus(status);
     }
 
     return <div style={styles.timerSetupContainer}>
