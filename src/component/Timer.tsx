@@ -21,15 +21,15 @@ export default function Timer({ hour, minute, second }: any) {
 
                 let remain = totalSeconds;
 
-                let s = remain % 60;
-                if (s < 10) {
-                    setCurrSecond('0' + s);
+                let h = Math.floor(remain / 3600);
+                if (h < 10) {
+                    setCurrHour('0' + h);
                 } else {
-                    setCurrSecond('' + s);
+                    setCurrHour('' + h);
                 }
-                remain -= s;
+                remain -= h * 3600;
 
-                let m = remain % 3600;
+                let m = Math.floor(remain / 60);
                 if (m < 10) {
                     setCurrMinute('0' + m);
                 } else {
@@ -37,11 +37,11 @@ export default function Timer({ hour, minute, second }: any) {
                 }
                 remain -= m * 60;
 
-                let h = remain % 86400;
-                if (h < 10) {
-                    setCurrHour('0' + h);
+                let s = remain;
+                if (s < 10) {
+                    setCurrSecond('0' + s);
                 } else {
-                    setCurrHour('' + h);
+                    setCurrSecond('' + s);
                 }
             }
         }, 1000);
