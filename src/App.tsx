@@ -24,9 +24,9 @@ function App() {
 
   return (
     <div className="App">
-      {currentScreen === "setup" && <TimerSetup setupFor="" onClose={() => handleSetupClose()} />}
+      {currentScreen === "setup" && <TimerSetup setupFor="" title="set time" timeColor="white" onClose={() => handleSetupClose()} />}
       <div style={{ marginTop: "50px", marginBottom: "50px" }}></div>
-      {currentScreen === "setup" && <TimerSetup setupFor="alarm" onClose={() => handleSetupClose()} />}
+      {currentScreen === "setup" && <TimerSetup setupFor="alarm" title="set warning time" timeColor="yellow" onClose={() => handleSetupClose()} />}
       <div style={{ marginTop: "50px", marginBottom: "50px" }}></div>
       {currentScreen === "timer" && <Timer hour={hour} minute={minute} second={second} />}
     </div>

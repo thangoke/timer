@@ -3,7 +3,7 @@ import AdjustUp from "./AdjustUp"
 import AdjustDown from "./AdjustDown"
 import { useState } from "react"
 
-export default function TimerSetup({ onClose, setupFor, timeColor }: any) {
+export default function TimerSetup({ onClose, setupFor, title, timeColor }: any) {
     let [hour, setHour] = useState(localStorage.getItem(`thangoke.timer/${setupFor}hour`) || "00");
     let [minute, setMinute] = useState(localStorage.getItem(`thangoke.timer/${setupFor}minute`) || "00");
     let [second, setSecond] = useState(localStorage.getItem(`thangoke.timer/${setupFor}second`) || "15");
@@ -102,7 +102,7 @@ export default function TimerSetup({ onClose, setupFor, timeColor }: any) {
 
     return <div style={styles.timerSetupContainer}>
         <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-            <div style={{ color: "white", fontSize: "40px", margin: "10px" }}>set time</div>
+            <div style={{ color: "white", fontSize: "40px", margin: "10px" }}>{title}</div>
             <button style={{ color: "red", fontSize: "40px", borderRadius: "50%", margin: "10px" }} onClick={e => onClose(e)}>x</button>
         </div>
         <div style={styles.timerAdjustContainer}>
@@ -110,7 +110,7 @@ export default function TimerSetup({ onClose, setupFor, timeColor }: any) {
             <AdjustUp onClick={() => setElement("minute", "up")} />
             <AdjustUp onClick={() => setElement("second", "up")} />
         </div>
-        <div style={styles.timerElement}>{hour} : {minute} : {second}</div>
+        <div style={{ ...styles.timerElement, color: timeColor }}>{hour} : {minute} : {second}</div>
         <div style={styles.timerAdjustContainer}>
             <AdjustDown onClick={() => setElement("hour", "down")} />
             <AdjustDown onClick={() => setElement("minute", "down")} />
