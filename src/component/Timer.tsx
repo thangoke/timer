@@ -1,12 +1,44 @@
 import StyleSheetHolder from "../type/StyleSheetHolder"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import PlayPauseButton from "./PlayPauseButton";
 
 export default function Timer({ hour, minute, second }: any) {
+    let [currHour, setCurrHour] = useState(hour);
+    let [currMinute, setCurrMinute] = useState(minute);
+    let [currSecond, setCurrSecond] = useState(second);
+
+    let totalSeconds = Number(currHour) * 3600 + Number(minute) * 60 + Number(second);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (totalSeconds > 0) {
+                --totalSeconds
+            };
+
+            let remain = totalSeconds;
+
+            let s = remain % 60;
+            setCurrSecond('' + s);
+            remain -= s;
+
+            let m = remain % 3600;
+            setCurrMinute('' + m);
+            remain -= m * 60;
+
+            let h = remain % 86400;
+            setCurrHour('' + h);
+        }, 1000);
+        return () => clearInterval(interval);
+    }, []);
+
+    const handleStatusChange = (status: string) => {
+
+    }
+
     return <div style={styles.timerSetupContainer}>
-        <div style={styles.timerElement}>{hour} : {minute} : {second}</div>
+        <div style={styles.timerElement}>{currHour} : {currMinute} : {currSecond}</div>
         <div style={styles.timerAdjustContainer}>
-            <PlayPauseButton onStatusChange={() => { }} />
+            <PlayPauseButton onStatusChange={(status: string) => handleStatusChange(status)} />
         </div>
     </div>
 }
