@@ -17,11 +17,13 @@ export default function TimerSetup() {
                     break;
                 }
                 currentHour += amount;
+                let hourPresen = "";
                 if (currentHour < 10) {
-                    setHour('0' + currentHour);
+                    hourPresen = ('0' + currentHour);
                 } else {
-                    setHour('' + currentHour);
+                    hourPresen = ('' + currentHour);
                 }
+                setHour(hourPresen);
                 break;
             }
             case "minute": {
@@ -30,11 +32,13 @@ export default function TimerSetup() {
                     break;
                 }
                 currenMinute += amount;
-                if (currenMinute < 60) {
-                    setMinute('0' + currenMinute);
+                let minutePresen = "";
+                if (currenMinute < 10) {
+                    minutePresen = ('0' + currenMinute);
                 } else {
-                    setMinute('' + currenMinute);
+                    minutePresen = ('' + currenMinute);
                 }
+                setMinute(minutePresen);
                 break;
             }
             case "second": {
@@ -43,11 +47,13 @@ export default function TimerSetup() {
                     break;
                 }
                 currenSecond += amount;
-                if (currenSecond < 60) {
-                    setSecond('0' + currenSecond);
+                let secondPresen = "";
+                if (currenSecond < 10) {
+                    secondPresen = ('0' + currenSecond);
                 } else {
-                    setSecond('' + currenSecond);
+                    secondPresen = ('' + currenSecond);
                 }
+                setSecond(secondPresen);
                 break;
             }
         }
