@@ -24,6 +24,7 @@ export default function TimerSetup() {
                     hourPresen = ('' + currentHour);
                 }
                 setHour(hourPresen);
+                localStorage.setItem("thangoke.timer/hour", hourPresen);
                 break;
             }
             case "minute": {
@@ -39,6 +40,7 @@ export default function TimerSetup() {
                     minutePresen = ('' + currenMinute);
                 }
                 setMinute(minutePresen);
+                localStorage.setItem("thangoke.timer/minute", minutePresen);
                 break;
             }
             case "second": {
@@ -54,6 +56,7 @@ export default function TimerSetup() {
                     secondPresen = ('' + currenSecond);
                 }
                 setSecond(secondPresen);
+                localStorage.setItem("thangoke.timer/second", secondPresen);
                 break;
             }
         }
