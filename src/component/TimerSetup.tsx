@@ -98,5 +98,6 @@ const styles: StyleSheetHolder = {
         fontSize: "100px",
         borderTop: "2px solid white",
         borderBottom: "2px solid white",
+        userSelect: "none",
     }
 }
