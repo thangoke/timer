@@ -8,6 +8,13 @@ export default function TimerSetup({ onClose }: any) {
     let [minute, setMinute] = useState(localStorage.getItem("thangoke.timer/minute") || "00");
     let [second, setSecond] = useState(localStorage.getItem("thangoke.timer/second") || "15");
 
+    const getFormatted = (num: number) => {
+        if (num < 10) {
+            return '0' + num;
+        }
+        return '' + num;
+    }
+
     const setElement = (name: string, direction: string) => {
         let amount = direction === "down" ? -1 : 1;
         switch (name) {
@@ -62,6 +69,37 @@ export default function TimerSetup({ onClose }: any) {
         }
     }
 
+    const reset = () => {
+        setHour("00");
+        localStorage.setItem("thangoke.timer/hour", "00");
+        setMinute("00");
+        localStorage.setItem("thangoke.timer/minute", "00");
+        setSecond("00");
+        localStorage.setItem("thangoke.timer/second", "00");
+    }
+
+    const plusMinute = (num: number) => {
+        if (Number(minute) + num > 59) {
+            setMinute("59");
+            localStorage.setItem("thangoke.timer/minute", "59");
+        } else {
+            const newMinute = getFormatted(Number(minute) + num);
+            setMinute(newMinute);
+            localStorage.setItem("thangoke.timer/minute", newMinute);
+        }
+    }
+
+    const plusSecond = (num: number) => {
+        if (Number(second) + num > 59) {
+            setSecond("59");
+            localStorage.setItem("thangoke.timer/second", "59");
+        } else {
+            const newSecond = getFormatted(Number(second) + num);
+            setSecond(newSecond);
+            localStorage.setItem("thangoke.timer/second", newSecond);
+        }
+    }
+
     return <div style={styles.timerSetupContainer}>
         <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
             <div style={{ color: "white", fontSize: "40px", margin: "10px" }}>set time</div>
@@ -77,6 +115,11 @@ export default function TimerSetup({ onClose }: any) {
             <AdjustDown onClick={() => setElement("hour", "down")} />
             <AdjustDown onClick={() => setElement("minute", "down")} />
             <AdjustDown onClick={() => setElement("second", "down")} />
+        </div>
+        <div style={styles.quickAdjustContainer}>
+            <div style={styles.quickAdjustButton} onClick={() => reset()}>00:00</div>
+            <div style={styles.quickAdjustButton} onClick={() => plusMinute(5)}>+ 05m</div>
+            <div style={styles.quickAdjustButton} onClick={() => plusSecond(15)}>+ 15s</div>
         </div>
     </div>
 }
@@ -98,6 +141,23 @@ const styles: StyleSheetHolder = {
         fontSize: "100px",
         borderTop: "2px solid white",
         borderBottom: "2px solid white",
+        userSelect: "none",
+    },
+    quickAdjustContainer: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        marginBottom: "30px",
+    },
+    quickAdjustButton: {
+        color: "white",
+        fontSize: "30px",
+        marginLeft: "30px",
+        marginRight: "30px",
+        border: "1px solid",
+        borderRadius: "50%",
+        paddingLeft: "20px",
+        paddingRight: "20px",
         userSelect: "none",
     }
 }
