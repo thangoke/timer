@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import TimerSetup from './component/TimerSetup';
 
@@ -9,11 +9,24 @@ import Timer from './component/Timer';
 library.add(faCheckSquare, faCoffee, faPlay, faPause);
 
 function App() {
+  let [currentScreen, setCurrentScreen] = useState("setup");
+
+  let [hour, setHour] = useState("00");
+  let [minute, setMinute] = useState("00");
+  let [second, setSecond] = useState("15");
+
+  const handleSetupClose = () => {
+    setCurrentScreen("timer");
+    setHour(localStorage.getItem("thangoke.timer/hour") || "00");
+    setMinute(localStorage.getItem("thangoke.timer/minute") || "00");
+    setSecond(localStorage.getItem("thangoke.timer/second") || "15");
+  }
+
   return (
     <div className="App">
-      <TimerSetup />
+      {currentScreen === "setup" && <TimerSetup onClose={() => handleSetupClose()} />}
       <div style={{ marginTop: "50px", marginBottom: "50px" }}></div>
-      <Timer />
+      {currentScreen === "timer" && <Timer hour={hour} minute={minute} second={second} />}
     </div>
 
   );

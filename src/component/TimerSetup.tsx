@@ -3,10 +3,10 @@ import AdjustUp from "./AdjustUp"
 import AdjustDown from "./AdjustDown"
 import { useState } from "react"
 
-export default function TimerSetup() {
-    let [hour, setHour] = useState("03");
+export default function TimerSetup({ onClose }: any) {
+    let [hour, setHour] = useState("00");
     let [minute, setMinute] = useState("00");
-    let [second, setSecond] = useState("00");
+    let [second, setSecond] = useState("15");
 
     const setElement = (name: string, direction: string) => {
         let amount = direction === "down" ? -1 : 1;
@@ -65,7 +65,7 @@ export default function TimerSetup() {
     return <div style={styles.timerSetupContainer}>
         <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
             <div style={{ color: "white", fontSize: "40px", margin: "10px" }}>set time</div>
-            <button style={{ color: "red", fontSize: "40px", borderRadius: "50%", margin: "10px" }}>x</button>
+            <button style={{ color: "red", fontSize: "40px", borderRadius: "50%", margin: "10px" }} onClick={e => onClose(e)}>x</button>
         </div>
         <div style={styles.timerAdjustContainer}>
             <AdjustUp onClick={() => setElement("hour", "up")} />
