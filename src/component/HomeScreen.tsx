@@ -57,15 +57,25 @@ export default function HomeScreen({ hour, minute, second, onChangeScreen }: any
     return <div style={styles.timerSetupContainer}>
         <div style={styles.timerElement} onClick={() => onChangeScreen("setup")}>{currHour} : {currMinute} : {currSecond}</div>
         <div style={styles.alarmContainer}>
-            <div style={styles.alarmButton} onClick={() => onChangeScreen("setupAlarm")}>00:00</div>
-            <div style={styles.alarmButton} onClick={() => { }}>LOCKED</div>
-            <div style={styles.alarmButton} onClick={() => { }}>LOCKED</div>
+            <div style={styles.alarmButton} onClick={() => onChangeScreen("setupAlarm")}>00:00:00</div>
+            <div style={styles.alarmButton}>
+                <FontAwesomeIcon
+                    icon={"lock"}
+                    style={{ color: "orange", fontWeight: "bold", fontSize: "30px", marginLeft: "55px", marginRight: "55px" }}
+                />
+            </div>
+            <div style={styles.alarmButton}>
+                <FontAwesomeIcon
+                    icon={"lock"}
+                    style={{ color: "orange", fontWeight: "bold", fontSize: "30px", marginLeft: "55px", marginRight: "55px" }}
+                />
+            </div>
         </div>
         <div style={styles.timerAdjustContainer}>
-            <FontAwesomeIcon
+            {/* <FontAwesomeIcon
                 icon={"cog"}
                 style={{ color: "white", fontWeight: "bold", fontSize: "100px", marginLeft: "55px", marginRight: "55px" }}
-            />
+            /> */}
             <PlayPauseButton onStatusChange={(status: string) => handleStatusChange(status)} />
         </div>
     </div>
@@ -94,6 +104,7 @@ const styles: StyleSheetHolder = {
         display: "flex",
         flexDirection: "row",
         justifyContent: "center",
+        alignItems: "center",
         marginBottom: "30px",
     },
     alarmButton: {
