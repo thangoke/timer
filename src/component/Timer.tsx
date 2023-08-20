@@ -1,6 +1,7 @@
 import StyleSheetHolder from "../type/StyleSheetHolder"
 import { useEffect, useState } from "react"
 import PlayPauseButton from "./PlayPauseButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Timer({ hour, minute, second }: any) {
     let [currStatus, setCurrStatus] = useState("pause");
@@ -9,7 +10,10 @@ export default function Timer({ hour, minute, second }: any) {
     let [currMinute, setCurrMinute] = useState(minute);
     let [currSecond, setCurrSecond] = useState(second);
 
-    let [totalSeconds, setTotalSeconds] = useState(Number(currHour) * 3600 + Number(minute) * 60 + Number(second));
+    let [totalSeconds, setTotalSeconds] = useState(Number(currHour) * 3600 + Number(currMinute) * 60 + Number(currSecond));
+    const initSeconds = Number(hour) * 3600 + Number(minute) * 60 + Number(second);
+
+    let [countDownPercent, setCountDownPercent] = useState(0);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -43,6 +47,9 @@ export default function Timer({ hour, minute, second }: any) {
                 } else {
                     setCurrSecond('' + s);
                 }
+
+                debugger;
+                setCountDownPercent(100 - Math.floor(totalSeconds * 100 / initSeconds));
             }
         }, 1000);
         return () => clearInterval(interval);
@@ -57,6 +64,17 @@ export default function Timer({ hour, minute, second }: any) {
         <div style={styles.timerElement}>{currHour} : {currMinute} : {currSecond}</div>
         <div style={styles.timerAdjustContainer}>
             <PlayPauseButton onStatusChange={(status: string) => handleStatusChange(status)} />
+        </div>
+        <div style={styles.progressContainer}>
+            <div style={{ background: "green", height: "30px", width: "30%" }} />
+            <div style={{ background: "yellow", height: "30px", width: "70%" }} />
+        </div>
+        <div style={styles.progressContainer}>
+            <div style={{ height: "50px", width: `${countDownPercent}%` }} />
+            <FontAwesomeIcon
+                icon={"play"}
+                style={{ color: "white", fontWeight: "bold", fontSize: "50px", transform: "rotate(-90deg)" }}
+            />
         </div>
     </div>
 }
@@ -79,5 +97,9 @@ const styles: StyleSheetHolder = {
         borderTop: "2px solid white",
         borderBottom: "2px solid white",
         userSelect: "none",
+    },
+    progressContainer: {
+        display: "flex",
+        flexDirection: "row",
     }
 }
