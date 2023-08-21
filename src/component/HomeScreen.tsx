@@ -3,10 +3,15 @@ import PlayPauseButton from "./PlayPauseButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function HomeScreen({ hour, minute, second, onChangeScreen }: any) {
+
+    let warningHour = localStorage.getItem(`thangoke.timer/${"alarm"}hour`) || "00";
+    let warningMinute = localStorage.getItem(`thangoke.timer/${"alarm"}minute`) || "00";
+    let warningSecond = localStorage.getItem(`thangoke.timer/${"alarm"}second`) || "15";
+
     return <div style={styles.timerSetupContainer}>
         <div style={styles.timerElement} onClick={() => onChangeScreen("setup")}>{hour} : {minute} : {second}</div>
         <div style={styles.alarmContainer}>
-            <div style={styles.alarmButton} onClick={() => onChangeScreen("setupAlarm")}>00:00:00</div>
+            <div style={styles.alarmButton} onClick={() => onChangeScreen("setupAlarm")}>{warningHour} : {warningMinute} : {warningSecond}</div>
             <div style={styles.alarmButton}>
                 <FontAwesomeIcon
                     icon={"lock"}

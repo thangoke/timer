@@ -15,6 +15,12 @@ export default function Timer({ hour, minute, second }: any) {
 
     let [countDownPercent, setCountDownPercent] = useState(0);
 
+    let warningHour = localStorage.getItem(`thangoke.timer/${"alarm"}hour`) || "00";
+    let warningMinute = localStorage.getItem(`thangoke.timer/${"alarm"}minute`) || "00";
+    let warningSecond = localStorage.getItem(`thangoke.timer/${"alarm"}second`) || "15";
+    const totalWarningSeconds = Number(warningHour) * 3600 + Number(warningMinute) * 60 + Number(warningSecond);
+    const warningPercentage = totalWarningSeconds * 100 / initSeconds;
+
     useEffect(() => {
         const interval = setInterval(() => {
             console.log(currStatus)
@@ -66,8 +72,8 @@ export default function Timer({ hour, minute, second }: any) {
             <PlayPauseButton onStatusChange={(status: string) => handleStatusChange(status)} />
         </div>
         <div style={styles.progressContainer}>
-            <div style={{ background: "green", height: "30px", width: "30%" }} />
-            <div style={{ background: "yellow", height: "30px", width: "70%" }} />
+            <div style={{ background: "green", height: "30px", width: `${100 - warningPercentage}%` }} />
+            <div style={{ background: "yellow", height: "30px", width: `${warningPercentage}%` }} />
         </div>
         <div style={styles.progressContainer}>
             <div style={{ height: "50px", width: `${countDownPercent}%` }} />
@@ -101,5 +107,8 @@ const styles: StyleSheetHolder = {
     progressContainer: {
         display: "flex",
         flexDirection: "row",
+        marginLeft: "50px",
+        marginRight: "50px",
+        userSelect: "none",
     }
 }
